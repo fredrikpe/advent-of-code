@@ -22,12 +22,6 @@ solvePartOne ls = case find (\x => sumPair x == 2020) (unique_pairs ls) of
                        Nothing => Left "no solution"
                        Just (a, b) => Right (a * b)
 
-contains2020List : List (Integer, Integer) -> Type
-contains2020List [] = False
-contains2020List ((a, b) :: xs) = if a + b == 2020 then True else contains2020sum xs
-
-proofPartOne : Dec (contains2020sum l) -> Dec (solvePartOne l = Right s)
-
 main : IO ()
 main = do file <- readFile "input/1.txt"
           case file of
