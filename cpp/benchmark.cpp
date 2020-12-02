@@ -5,20 +5,20 @@
 
 static void BM_1_1(benchmark::State& state) {
     for (auto _ : state) {
-        benchmark::DoNotOptimize(solve_1_1());
+        benchmark::DoNotOptimize(day1::part1());
     }
 }
 
 static void BM_2_1(benchmark::State& state) {
-    auto input = parse_input_2_1();
+    auto input = day2::parse_input();
     for (auto _ : state) {
-        benchmark::DoNotOptimize(solve_2_1(input));
+        benchmark::DoNotOptimize(day2::part1(input));
     }
 }
 static void BM_2_2(benchmark::State& state) {
-    auto input = parse_input_2_1();
+    auto input = day2::parse_input();
     for (auto _ : state) {
-        benchmark::DoNotOptimize(solve_2_2(input));
+        benchmark::DoNotOptimize(day2::part2(input));
     }
 }
 

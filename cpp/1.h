@@ -1,5 +1,6 @@
 #include <array>
 
+namespace day1 {
 std::array<int, 200> input = {
     1941, 1887, 1851, 1874, 1612, 1960, 1971, 1983, 1406, 1966, 1554, 1892, 1898,
     1926, 1081, 1992, 1073, 1603, 177, 1747, 1063, 1969, 1659, 1303, 1759, 1853,
@@ -19,13 +20,14 @@ std::array<int, 200> input = {
     1112, 1908, 1442, 1082, 1071
 };
 
-int solve_1_1() {
+int part1() {
     for (auto& i : input) {
         for (auto& j : input) {
             if (i + j == 2020) {
-                return j;
+                return i*j;
             }
         }
     }
     return 0;
+}
 }

@@ -1,7 +1,8 @@
-#include <fstream>
 #include <vector>
-#include <iostream>
 
+#include "input_parser.h"
+
+namespace day2 {
 
 struct Password {
     std::string pw;
@@ -10,31 +11,25 @@ struct Password {
     int high;
 };
 
+std::vector<Password> parse_input() {
+    return parse_input_by_line<Password>(
+        "../input/2-1.txt",
+        [](auto& line) {
+            auto low = line.substr(0, line.find("-"));
+            auto rest = line.substr(line.find("-") + 1);
+            auto high = rest.substr(0, rest.find(" "));
+            rest = rest.substr(rest.find(" ") + 1);
+            auto letter = rest.substr(0, rest.find(":"));
+            auto pw = rest.substr(rest.find(":") + 2);
 
-std::vector<Password> parse_input_2_1() {
-    std::ifstream file("../input/2-1.txt");
-
-    auto result = std::vector<Password>{};
-
-    std::string line;
-    std::string word;
-    while (std::getline(file, line)) {
-        auto low = line.substr(0, line.find("-"));
-        auto rest = line.substr(line.find("-") + 1);
-        auto high = rest.substr(0, rest.find(" "));
-        rest = rest.substr(rest.find(" ") + 1);
-        auto letter = rest.substr(0, rest.find(":"));
-        auto pw = rest.substr(rest.find(":") + 2);
-
-        result.emplace_back(Password{
-                .pw = pw,
-                .letter = letter[0],
-                .low = stoi(low),
-                .high = stoi(high),
-        });
-    }
-
-    return result;
+            return Password{
+                    .pw = pw,
+                    .letter = letter[0],
+                    .low = stoi(low),
+                    .high = stoi(high),
+            };
+        }
+    );
 }
 
 int char_count(const std::string& pw, char letter) {
@@ -45,7 +40,7 @@ int char_count(const std::string& pw, char letter) {
     );
 }
 
-int solve_2_1(const std::vector<Password>& input) {
+int part1(const std::vector<Password>& input) {
     return std::count_if(
             input.begin(),
             input.end(),
@@ -56,7 +51,7 @@ int solve_2_1(const std::vector<Password>& input) {
     );
 }
 
-int solve_2_2(const std::vector<Password>& input) {
+int part2(const std::vector<Password>& input) {
     return std::count_if(
             input.begin(),
             input.end(),
@@ -65,4 +60,5 @@ int solve_2_2(const std::vector<Password>& input) {
                         != (pw.pw[pw.high - 1] == pw.letter);
             }
     );
+}
 }
