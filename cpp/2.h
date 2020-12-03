@@ -12,7 +12,9 @@ struct Password {
 };
 
 std::vector<Password> parse_input() {
-    return parse_input_by_line<Password>(
+    auto vec = std::vector<Password>{};
+
+    parse_input_by_line(
         "../input/2-1.txt",
         [](auto& line) {
             auto low = line.substr(0, line.find("-"));
@@ -22,14 +24,15 @@ std::vector<Password> parse_input() {
             auto letter = rest.substr(0, rest.find(":"));
             auto pw = rest.substr(rest.find(":") + 2);
 
-            return Password{
+            vec.emplace_back(Password{
                     .pw = pw,
                     .letter = letter[0],
                     .low = stoi(low),
                     .high = stoi(high),
-            };
+            });
         }
     );
+    return vec;
 }
 
 int char_count(const std::string& pw, char letter) {
