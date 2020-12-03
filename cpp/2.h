@@ -16,7 +16,7 @@ std::vector<Password> parse_input() {
 
     parse_input_by_line(
         "../input/2-1.txt",
-        [](auto& line) {
+        [&vec](auto& line) {
             auto low = line.substr(0, line.find("-"));
             auto rest = line.substr(line.find("-") + 1);
             auto high = rest.substr(0, rest.find(" "));
