@@ -1,5 +1,5 @@
 #include <vector>
-#include <algorithm>
+#include <numeric>
 
 #include "input_parser.h"
 
@@ -25,16 +25,32 @@ TreeGrid parse_input() {
     return grid;
 }
 
-int part1(const TreeGrid& input) {
-    auto cur_x = 0;
-    return std::count_if(input.begin() + 1, input.end(), [&cur_x](auto& row) {
-        cur_x += 3;
-        return row[cur_x % 31];
-    });
+struct Slope {
+    int x;
+    int y;
+};
+
+long trees_encountered(const TreeGrid& input, Slope slope) {
+    auto total = 0;
+    for (int y=slope.y, x=slope.x; y<input.size(); y+=slope.y, x+=slope.x) {
+        if (input[y][x % 31]) {
+            total++;
+        }
+    }
+    return total;
 }
 
-int part2(const std::vector<int>& input) {
-    return 0;
+int part1(const TreeGrid& input) {
+    return trees_encountered(input, {.x=3, .y=1});
+}
+
+long part2(const TreeGrid& input) {
+    return
+        trees_encountered(input, {.x=1, .y=1}) *
+        trees_encountered(input, {.x=3, .y=1}) *
+        trees_encountered(input, {.x=5, .y=1}) *
+        trees_encountered(input, {.x=7, .y=1}) *
+        trees_encountered(input, {.x=1, .y=2});
 }
 
 } // day3

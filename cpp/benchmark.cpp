@@ -29,6 +29,13 @@ static void BM_3_1(benchmark::State& state) {
         benchmark::DoNotOptimize(day3::part1(input));
     }
 }
+static void BM_3_2(benchmark::State& state) {
+    auto input = day3::parse_input();
+    for (auto _ : state) {
+        benchmark::DoNotOptimize(day3::part2(input));
+    }
+}
+
 
 
 
@@ -37,4 +44,5 @@ BENCHMARK(BM_1_1);
 BENCHMARK(BM_2_1);
 BENCHMARK(BM_2_2);
 BENCHMARK(BM_3_1);
+BENCHMARK(BM_3_2);
 BENCHMARK_MAIN();

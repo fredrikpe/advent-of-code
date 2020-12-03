@@ -11,4 +11,5 @@ int main() {
     std::cout << "2-2: " << day2::part2(day2::parse_input()) << std::endl;
 
     std::cout << "3-1: " << day3::part1(day3::parse_input()) << std::endl;
+    std::cout << "3-2: " << day3::part2(day3::parse_input()) << std::endl;
 }
