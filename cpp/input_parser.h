@@ -7,6 +7,8 @@
 #include <random>
 
 
+static auto RNG = std::default_random_engine{};
+
 template<class Function>
 void parse_input_by_line(const std::string& path, Function f) {
     std::ifstream file(path);
@@ -22,8 +24,7 @@ void parse_input_by_random_line(const std::string& path, Function f) {
     auto lines = std::vector<std::string>{};
     parse_input_by_line(path, [&lines](auto& line) { lines.push_back(line); });
 
-    auto rng = std::default_random_engine{};
-    std::shuffle(std::begin(lines), std::end(lines), rng);
+    std::shuffle(std::begin(lines), std::end(lines), RNG);
     for (auto& rline : lines) {
         f(rline);
     }
