@@ -3,6 +3,7 @@
 #include "1.h"
 #include "2.h"
 #include "3.h"
+#include "4.h"
 
 static void BM_1_1(benchmark::State& state) {
     for (auto _ : state) {
@@ -36,7 +37,18 @@ static void BM_3_2(benchmark::State& state) {
     }
 }
 
-
+static void BM_4_1(benchmark::State& state) {
+    auto input = day4::parse_input_random();
+    for (auto _ : state) {
+        benchmark::DoNotOptimize(day4::part1(input));
+    }
+}
+static void BM_4_2(benchmark::State& state) {
+    auto input = day4::parse_input_random();
+    for (auto _ : state) {
+        benchmark::DoNotOptimize(day4::part2(input));
+    }
+}
 
 
 
@@ -45,4 +57,6 @@ BENCHMARK(BM_2_1);
 BENCHMARK(BM_2_2);
 BENCHMARK(BM_3_1);
 BENCHMARK(BM_3_2);
+BENCHMARK(BM_4_1);
+BENCHMARK(BM_4_2);
 BENCHMARK_MAIN();
