@@ -4,6 +4,7 @@
 #include "2.h"
 #include "3.h"
 #include "4.h"
+#include "5.h"
 
 int main() {
     std::cout << "1: " << day1::part1() << std::endl;
@@ -16,4 +17,7 @@ int main() {
 
     std::cout << "4-1: " << day4::part1(day4::parse_input()) << std::endl;
     std::cout << "4-2: " << day4::part2(day4::parse_input()) << std::endl;
+
+    std::cout << "5-1: " << day5::part1(day5::parse_input()) << std::endl;
+    std::cout << "5-2: " << day5::part2(day5::parse_input()) << std::endl;
 }
