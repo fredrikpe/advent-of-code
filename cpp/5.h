@@ -1,6 +1,6 @@
 #include <vector>
-#include <optional>
-#include <cstdlib>
+#include <limits>
+#include <algorithm>
 
 #include "input_parser.h"
 
@@ -35,6 +35,19 @@ std::vector<int> parse_input_random() {
 
 int part1(const std::vector<int>& input) {
     return *std::max_element(input.begin(), input.end());
+}
+
+int part2fast(std::vector<int> input) {
+    int sum = 0;
+    int min = std::numeric_limits<int>::max();
+    int max = 0;
+
+    for (int i : input) {
+        if (i < min) min = i;
+        if (i > max) max = i;
+        sum += i;
+    }
+    return (input.size() + 1) * (max + min) / 2 - sum;
 }
 
 int part2(std::vector<int> input) {
