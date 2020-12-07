@@ -8,20 +8,20 @@ with open("../input/7.txt", "r") as inputfile:
             continue
 
         root = words[0] + " " + words[1]
-        words = words[4:]
-        leafs = []
-        while True:
-            leafs.append((int(words[0]), words[1] + " " + words[2]))
-            if len(words[3:]) < 2:
-                break
+        tree[root] = []
+
+        while len(words) > 5:
             words = words[4:]
-        for (n, leaf) in leafs:
+
+            count = int(words[0])
+            leaf = words[1] + " " + words[2]
+
             if leaf in inverse_tree:
                 inverse_tree[leaf].append(root)
             else:
                 inverse_tree[leaf] = [root]
 
-        tree[root] = leafs
+            tree[root].append((count, leaf))
 
 
 def part1():
