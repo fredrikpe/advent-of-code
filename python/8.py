@@ -32,21 +32,16 @@ def part1():
 def part2():
     _, v, _, _ = run(LINES)
 
-    for i in v[::-1]:
-        lines = LINES
+    for i in v:
+        lines = LINES[:]
         if LINES[i][:3] == "jmp":
             lines[i] = "nop" + LINES[i][3:]
         elif LINES[i][:3] == "nop":
             lines[i] = "jmp" + LINES[i][3:]
 
-        a, v, s, I = run(lines)
+        a, vi, s, I = run(lines)
         if s:
-            print(i)
-            print(a, s)
-        if v == 345:
-            print("asdf")
-            print(LINES[i])
-            print(a, s, I)
+            print(a)
 
 part1()
 part2()
