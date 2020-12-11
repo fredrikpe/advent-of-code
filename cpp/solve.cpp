@@ -6,6 +6,7 @@
 #include "4.h"
 #include "5.h"
 #include "6.h"
+#include "11.h"
 
 int main() {
     std::cout << "1: " << day1::part1() << std::endl;
@@ -24,4 +25,7 @@ int main() {
 
     std::cout << "6-1: " << day6::part1() << std::endl;
     std::cout << "6-2: " << day6::part2() << std::endl;
+
+    std::cout << "11-1: " << day11::part1() << std::endl;
+    std::cout << "11-2: " << day11::part2() << std::endl;
 }

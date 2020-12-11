@@ -1,7 +1,7 @@
-CC=clang++-10
-CFLAGS=-std=c++20 -O3 -Wall
+CC=clang++
+CFLAGS=-std=c++17 -O3 -Wall
 
-SOLUTION_HEADERS=1.h 2.h 3.h 4.h 5.h 6.h
+SOLUTION_HEADERS=1.h 2.h 3.h 4.h 5.h 6.h 11.h
 
 all: bench run
 

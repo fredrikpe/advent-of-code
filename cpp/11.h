@@ -7,6 +7,7 @@
 namespace day11 {
 
 constexpr int LINE_LENGTH = 90;
+constexpr int OLB = 5;
 
 enum SeatState {
     Floor = 0,
@@ -17,7 +18,7 @@ enum SeatState {
 using Row = std::array<SeatState, LINE_LENGTH>;
 using Seats = std::vector<Row>;
 
-SeatState applyt(
+SeatState next_state(
         const SeatState& state,
         const std::array<SeatState, 8>& surroundings
 ) {
@@ -34,13 +35,13 @@ SeatState applyt(
     if (state == Empty && occupied == 0) {
         return Occupied;
     }
-    if (state == Occupied && occupied > 3) {
+    if (state == Occupied && occupied >= OLB) {
         return Empty;
     }
     return state;
 }
 
-std::array<SeatState, 8> surroundings(int x, int y, const Seats& seats) {
+std::array<SeatState, 8> surroundings_by_box(int x, int y, const Seats& seats) {
     auto result = std::array<SeatState, 8>{};
     int c = 0;
     for (
@@ -63,6 +64,37 @@ std::array<SeatState, 8> surroundings(int x, int y, const Seats& seats) {
     return result;
 }
 
+std::array<SeatState, 8> surroundings_by_line_of_sight(
+        int x, int y, const Seats& seats
+) {
+    auto out_of_bounds = [&seats](auto i, auto j) {
+        return i < 0 || i >= seats.size() || j < 0 || j >= LINE_LENGTH;
+    };
+    auto first_encounter = [&](int incr_i, int incr_j) {
+        int i = x + incr_i;
+        int j = y + incr_j;
+        while (!out_of_bounds(i, j)) {
+            if (seats[i][j] != Floor) {
+                return seats[i][j];
+            }
+            i += incr_i;
+            j += incr_j;
+        }
+        return Floor;
+    };
+
+    return std::array<SeatState, 8>{{
+        first_encounter(1, 0),
+        first_encounter(-1, 0),
+        first_encounter(0, 1),
+        first_encounter(0, -1),
+        first_encounter(1, 1),
+        first_encounter(1, -1),
+        first_encounter(-1, 1),
+        first_encounter(-1, -1)
+    }};
+}
+
 void print_seats(const Seats& seats) {
     std::cout << std::endl;
     for (auto r : seats) {
@@ -78,7 +110,8 @@ void print_seats(const Seats& seats) {
     std::cout << std::endl;
 }
 
-int part1() {
+template <typename Surroundings>
+int solve(Surroundings surroundings) {
     auto seats = Seats{};
 
     parse_input_by_line("../input/11.txt", [&](auto& line) {
@@ -97,11 +130,11 @@ int part1() {
     auto current_seats = seats;
 
     while (changed) {
-        auto next_seats = current_seats;
         changed = false;
+        auto next_seats = current_seats;
         for (int i=0; i<seats.size(); i++) {
             for (int j=0; j<LINE_LENGTH; j++) {
-                next_seats[i][j] = applyt(
+                next_seats[i][j] = next_state(
                         current_seats[i][j],
                         surroundings(i, j, current_seats)
                 );
@@ -122,5 +155,13 @@ int part1() {
         }
     }
     return c;
+}
+
+int part1() {
+    return solve(surroundings_by_box);
+}
+
+int part2() {
+    return solve(surroundings_by_line_of_sight);
 }
 }

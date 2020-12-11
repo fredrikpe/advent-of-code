@@ -5,6 +5,7 @@
 #include "3.h"
 #include "4.h"
 #include "5.h"
+#include "11.h"
 
 static void BM_1_1(benchmark::State& state) {
     for (auto _ : state) {
@@ -64,7 +65,18 @@ static void BM_5_2fast(benchmark::State& state) {
     }
 }
 
-/*
+static void BM_11_1(benchmark::State& state) {
+    for (auto _ : state) {
+        benchmark::DoNotOptimize(day11::part1());
+    }
+}
+static void BM_11_2(benchmark::State& state) {
+    for (auto _ : state) {
+        benchmark::DoNotOptimize(day11::part2());
+    }
+}
+
+
 BENCHMARK(BM_1_1);
 BENCHMARK(BM_2_1);
 BENCHMARK(BM_2_2);
@@ -72,7 +84,9 @@ BENCHMARK(BM_3_1);
 BENCHMARK(BM_3_2);
 BENCHMARK(BM_4_1);
 BENCHMARK(BM_4_2);
-*/
 BENCHMARK(BM_5_2);
 BENCHMARK(BM_5_2fast);
+BENCHMARK(BM_11_1);
+BENCHMARK(BM_11_2);
+
 BENCHMARK_MAIN();
