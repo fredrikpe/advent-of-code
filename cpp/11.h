@@ -8,6 +8,7 @@ namespace day11 {
 
 constexpr int LINE_LENGTH = 90;
 constexpr int OLB = 5;
+constexpr char INPUT_FILE[] = "../input/11.txt";
 
 enum SeatState {
     Floor = 0,
@@ -45,19 +46,18 @@ std::array<SeatState, 8> surroundings_by_box(int x, int y, const Seats& seats) {
     auto result = std::array<SeatState, 8>{};
     int c = 0;
     for (
-            int xm=std::max(x - 1, 0);
-            xm<=std::min<int>(x + 1, seats.size() - 1);
-            xm++
+            int i=std::max(x - 1, 0);
+            i<=std::min<int>(x + 1, seats.size() - 1);
+            i++
         ) {
         for (
-                int ym=std::max(y - 1, 0);
-                ym<=std::min(y + 1, LINE_LENGTH - 1);
-                ym++
+                int j=std::max(y - 1, 0);
+                j<=std::min(y + 1, LINE_LENGTH - 1);
+                j++
             ) {
-            if (xm == x && ym == y) {
-                continue;
+            if (i != x || j != y) {
+                result[c++] = seats[i][j];
             }
-            result[c++] = seats[xm][ym];
         }
     }
 
@@ -71,14 +71,14 @@ std::array<SeatState, 8> surroundings_by_line_of_sight(
         return i < 0 || i >= seats.size() || j < 0 || j >= LINE_LENGTH;
     };
     auto first_encounter = [&](int incr_i, int incr_j) {
-        int i = x + incr_i;
-        int j = y + incr_j;
-        while (!out_of_bounds(i, j)) {
+        for (
+            int i = x + incr_i, j = y + incr_j;
+            !out_of_bounds(i, j);
+            i += incr_i, j += incr_j
+        ) {
             if (seats[i][j] != Floor) {
                 return seats[i][j];
             }
-            i += incr_i;
-            j += incr_j;
         }
         return Floor;
     };
@@ -114,7 +114,7 @@ template <typename Surroundings>
 int solve(Surroundings surroundings) {
     auto seats = Seats{};
 
-    parse_input_by_line("../input/11.txt", [&](auto& line) {
+    parse_input_by_line(INPUT_FILE, [&](auto& line) {
             auto row = Row{};
             for (int i=0; i<LINE_LENGTH; i++) {
                 if (line[i] == 'L') {
@@ -128,7 +128,6 @@ int solve(Surroundings surroundings) {
 
     bool changed = true;
     auto current_seats = seats;
-
     while (changed) {
         changed = false;
         auto next_seats = current_seats;
