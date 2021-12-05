@@ -1,1 +1,0 @@
-/Users/fpi/git/fredrikpe/advent-of-code/2021/rust/target/debug/rust: /Users/fpi/git/fredrikpe/advent-of-code/2021/rust/src/day1.rs /Users/fpi/git/fredrikpe/advent-of-code/2021/rust/src/day2.rs /Users/fpi/git/fredrikpe/advent-of-code/2021/rust/src/io_util.rs /Users/fpi/git/fredrikpe/advent-of-code/2021/rust/src/main.rs
