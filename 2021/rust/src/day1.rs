@@ -1,11 +1,9 @@
 use crate::io_util;
 
-
 pub fn part_1() -> usize {
-    part_1_impl(io_util::line_by_parser(
-        "../input/1-1.txt",
-        |s| s.parse::<i32>().unwrap()
-    ))
+    part_1_impl(io_util::line_by_parser("../input/1-1.txt", |s| {
+        s.parse::<i32>().unwrap()
+    }))
 }
 
 fn part_1_impl(lines: Vec<i32>) -> usize {
@@ -16,12 +14,8 @@ fn part_1_impl(lines: Vec<i32>) -> usize {
         .count()
 }
 
-
 pub fn part_2() -> i32 {
-    let lines = io_util::line_by_parser(
-        "../input/1-2.txt",
-        |s| s.parse::<i32>().unwrap()
-    );
+    let lines = io_util::line_by_parser("../input/1-2.txt", |s| s.parse::<i32>().unwrap());
 
     part_2_impl(lines)
 }
@@ -42,13 +36,13 @@ mod tests {
 
     #[test]
     fn p1() {
-        let t = part_1_impl(vec!(199, 200, 208, 210, 200, 207, 240, 269, 260, 263));
+        let t = part_1_impl(vec![199, 200, 208, 210, 200, 207, 240, 269, 260, 263]);
         assert_eq!(t, 7);
     }
-    
+
     #[test]
     fn p2() {
-        let t = part_2_impl(vec!(199, 200, 208, 210, 200, 207, 240, 269, 260, 263));
+        let t = part_2_impl(vec![199, 200, 208, 210, 200, 207, 240, 269, 260, 263]);
         assert_eq!(t, 5);
     }
 }
