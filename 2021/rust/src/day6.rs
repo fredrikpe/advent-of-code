@@ -1,14 +1,14 @@
 use crate::io_util;
 
 pub fn part_1() -> i64 {
-    part_1_impl(io_util::line_vec("../input/6-1.txt")[0].clone(), 80)
+    part_1_impl(io_util::line_vec("../input/6-1.txt").remove(0), 80)
 }
 
 fn part_1_impl(input: String, n: i32) -> i64 {
     let mut fish_count: [i64; 9] = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-    for c in input.split(',').collect::<Vec<&str>>().iter() {
-        fish_count[c.parse::<i32>().unwrap() as usize] += 1;
-    }
+    input
+        .split(',')
+        .for_each(|c| fish_count[c.parse::<i32>().unwrap() as usize] += 1);
 
     for _ in 0..n {
         let zero = fish_count[0];
