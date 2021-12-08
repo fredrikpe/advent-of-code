@@ -14,12 +14,12 @@ pub fn part_2() -> i32 {
 
 fn by_median(mut input: Vec<i32>) -> i32 {
     let half = input.len() / 2;
-    input.sort();
+    input.sort_unstable();
     let median = input[half];
     input.iter().map(|d| (d - median).abs()).sum()
 }
 
-fn total_fuel_consumption_2(input: &Vec<i32>, target: i32) -> i32 {
+fn total_fuel_consumption_2(input: &[i32], target: i32) -> i32 {
     input
         .iter()
         .map(|d| {
@@ -32,7 +32,7 @@ fn total_fuel_consumption_2(input: &Vec<i32>, target: i32) -> i32 {
 fn brute_force(input: Vec<i32>) -> i32 {
     let mut min = total_fuel_consumption_2(&input, 0);
 
-    for i in 1..=(*&input.len() as i32) {
+    for i in 1..=(input.len() as i32) {
         let t = total_fuel_consumption_2(&input, i as i32);
         if t < min {
             min = t as i32;

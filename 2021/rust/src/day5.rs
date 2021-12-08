@@ -1,4 +1,5 @@
 use crate::io_util;
+use std::cmp::Ordering;
 
 #[derive(Debug)]
 struct Line {
@@ -10,20 +11,17 @@ struct Line {
 
 impl Line {
     fn points_on_line(&self) -> Vec<(i32, i32)> {
-        let x_step = if self.x1 == self.x2 {
-            0
-        } else if self.x2 > self.x1 {
-            1
-        } else {
-            -1
+        let x_step = match self.x1.cmp(&self.x2) {
+            Ordering::Equal => 0,
+            Ordering::Less => 1,
+            Ordering::Greater => -1,
         };
-        let y_step = if self.y1 == self.y2 {
-            0
-        } else if self.y2 > self.y1 {
-            1
-        } else {
-            -1
+        let y_step = match self.y1.cmp(&self.y2) {
+            Ordering::Equal => 0,
+            Ordering::Less => 1,
+            Ordering::Greater => -1,
         };
+
         let mut x = self.x1;
         let mut y = self.y1;
         let mut v: Vec<(i32, i32)> = vec![];
