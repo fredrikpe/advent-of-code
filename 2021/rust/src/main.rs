@@ -7,6 +7,7 @@ mod day6;
 mod day7;
 mod day8;
 mod day9;
+mod day10;
 mod io_util;
 
 fn main() {
@@ -36,4 +37,7 @@ fn main() {
 
     println!("day9-1: {}", day9::part_1());
     println!("day9-2: {}\n", day9::part_2());
+
+    println!("day10-1: {}", day10::part_1());
+    println!("day10-2: {}\n", day10::part_2());
 }
